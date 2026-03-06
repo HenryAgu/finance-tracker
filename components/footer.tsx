@@ -26,7 +26,7 @@ const footerMenu: FooterMenu[] = [
 
 const Footer = () => {
     return (
-        <footer className='bg-white px-5 lg:px-10 py-5 lg:py-8 flex flex-col gap-y-3 lg:gap-y-6'>
+        <footer className='bg-white px-5 lg:px-10 py-8 flex flex-col gap-y-3 lg:gap-y-6'>
             <div className="flex lg:flex-row flex-col gap-y-5 justify-between">
                 <Image src="/logo.svg" alt='footer-logo' width={145} height={24} className='aspect-145/24' />
                 <div className="flex flex-col gap-y-0.5 lg:items-end">
