@@ -45,7 +45,7 @@ const Header = () => {
                 </div>
                 <Button className="bg-brand-green w-fit flex items-center gap-x-2 text-[#0F172A] px-6 py-5" size="lg" type="button">
                     <CreditCard />
-                    <span>Add Transaction</span>
+                    <span className="text-base font-bold">Add Transaction</span>
                 </Button>
             </div>
             <div className="flex gap-5 lg:gap-6 overflow-x-auto md:flex-wrap scrollbar-hide">
