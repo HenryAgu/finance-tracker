@@ -57,7 +57,7 @@ const Header = () => {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <p className="text-3xl font-black text-[#0F172A]">${item.amount.toLocaleString()}</p>
-                            <p className="text-[#64748B] text-sm font-normal">{item.subtitle}</p>
+                            <p className={`${item.subtitle === "75% of limit reached" ? "text-brand-green font-bold" : "text-[#64748B] text-sm font-normal"} `}>{item.subtitle}</p>
                         </div>
                     </div>
                 ))}
