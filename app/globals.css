@@ -44,6 +44,11 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-brand-green: #13ec5b;
+  --color-brand-green-subtle: #13ec5b1a;
+  --color-brand-green-ghost: #13ec5b0d;
+  --color-surface-tint: #f6f8f6;
 }
 
 :root {
@@ -88,7 +93,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.87 0.00 0);
+  --primary: oklch(0.87 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
