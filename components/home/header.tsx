@@ -1,9 +1,10 @@
 "use client"
-import { Banknote, ChartPie, CloudOff, CreditCard, PiggyBank } from "lucide-react"
+import { Banknote, Briefcase, ChartPie, CloudOff, CreditCard, PiggyBank } from "lucide-react"
 import React from "react";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog";
 import AddTransaction from "./add-transaction";
 import { useTracker } from "@/store/useTrackerStore";
+import { AddBudget } from "./add-budget";
 
 type BudgetType = {
     header: string;
@@ -16,7 +17,12 @@ type BudgetType = {
 
 
 const Header = () => {
-    const { budget, totalSpent, available, categories } = useTracker();
+    const [isTransactionDialogOpen, setIsTransactionDialogOpen] = React.useState(false);
+    const [isBudgetDialogOpen, setIsBudgetDialogOpen] = React.useState(false);
+    const budget = useTracker((s) => s.budget);
+    const totalSpent = useTracker((s) => s.totalSpent());
+    const available = useTracker((s) => s.available());
+    const categories = useTracker((s) => s.categories());
     const budgets: BudgetType[] = [
         {
             header: "Monthly Budget",
@@ -48,18 +54,32 @@ const Header = () => {
                         <p className="text-xs font-normal ">Data is saved locally to your browser</p>
                     </div>
                 </div>
-                <Dialog>
-                    <DialogTrigger className="bg-brand-green w-fit h-fit flex items-center gap-x-2 text-[#0F172A] px-6 py-3 rounded-[12px] cursor-pointer">
-                        <CreditCard />
-                        <span className="text-base font-bold">Add Transaction</span>
-                    </DialogTrigger>
-                    <DialogContent className="border border-[#13EC5B33] p-5 lg:max-w-127.5 max-w-full">
-                        <DialogTitle className='text-2xl font-bold text-[#0F172A] leading-8'>
-                            Add Transaction
-                        </DialogTitle>
-                        <AddTransaction />
-                    </DialogContent>
-                </Dialog>
+                <div className="flex lg:flex-row flex-col gap-2">
+                    <Dialog open={isBudgetDialogOpen} onOpenChange={setIsBudgetDialogOpen}>
+                        <DialogTrigger className="bg-[#E2E8F0] mx-auto justify-center w-full lg:w-fit h-fit flex items-center gap-x-2 text-[#0F172A] px-6 py-3 rounded-[12px] cursor-pointer">
+                            <Briefcase />
+                            <span className="text-base font-bold">Add Budget</span>
+                        </DialogTrigger>
+                        <DialogContent className="border border-[#13EC5B33] p-5 lg:max-w-127.5 max-w-full">
+                            <DialogTitle className='text-2xl font-bold text-[#0F172A] leading-8'>
+                                Add Budget
+                            </DialogTitle>
+                            <AddBudget onSuccess={() => setIsBudgetDialogOpen(false)} />
+                        </DialogContent>
+                    </Dialog>
+                    <Dialog open={isTransactionDialogOpen} onOpenChange={setIsTransactionDialogOpen}>
+                        <DialogTrigger className="bg-brand-green mx-auto justify-center w-full lg:w-fit h-fit flex items-center gap-x-2 text-[#0F172A] px-6 py-3 rounded-[12px] cursor-pointer">
+                            <CreditCard />
+                            <span className="text-base font-bold">Add Transaction</span>
+                        </DialogTrigger>
+                        <DialogContent className="border border-[#13EC5B33] p-5 lg:max-w-127.5 max-w-full">
+                            <DialogTitle className='text-2xl font-bold text-[#0F172A] leading-8'>
+                                Add Transaction
+                            </DialogTitle>
+                            <AddTransaction onSuccess={() => setIsTransactionDialogOpen(false)} />
+                        </DialogContent>
+                    </Dialog>
+                </div>
             </div>
             <div className="flex gap-5 lg:gap-6 overflow-x-auto md:flex-wrap scrollbar-hide">
                 {budgets.map((item) => (
