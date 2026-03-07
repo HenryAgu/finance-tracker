@@ -2,12 +2,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import ExpenseForm from './expense-form'
 import IncomeForm from './income-form'
 
-const TABS = [
-  { value: 'expense', label: 'Expense', content: <ExpenseForm /> },
-  { value: 'income', label: 'Income', content: <IncomeForm /> },
-] as const
+interface AddTransactionProps {
+  onSuccess?: () => void;
+}
 
-const AddTransaction = () => {
+const AddTransaction = ({ onSuccess }: AddTransactionProps) => {
+  const TABS = [
+    { value: 'expense', label: 'Expense', content: <ExpenseForm onSuccess={onSuccess} /> },
+    { value: 'income', label: 'Income', content: <IncomeForm onSuccess={onSuccess} /> },
+  ] as const;
+
   return (
     <div className="my-5">
       <Tabs defaultValue="expense">
@@ -20,7 +24,7 @@ const AddTransaction = () => {
         </TabsList>
 
         {TABS.map(({ value, content }) => (
-          <TabsContent key={value} value={value} className="mt-5">
+          <TabsContent key={value} value={value} className="mt-5 h-[20vh] overflow-y-auto">
             {content}
           </TabsContent>
         ))}

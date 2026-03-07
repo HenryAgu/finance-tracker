@@ -1,7 +1,10 @@
-import { Banknote, ChartPie, CloudOff, CreditCard, PiggyBank } from "lucide-react"
+"use client"
+import { Banknote, Briefcase, ChartPie, CloudOff, CreditCard, PiggyBank } from "lucide-react"
 import React from "react";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog";
 import AddTransaction from "./add-transaction";
+import { useTracker } from "@/store/useTrackerStore";
+import { AddBudget } from "./add-budget";
 
 type BudgetType = {
     header: string;
@@ -11,28 +14,35 @@ type BudgetType = {
 }
 
 
-const budgets: BudgetType[] = [
-    {
-        header: "Monthly Budget",
-        icon: <ChartPie className="text-brand-green" />,
-        amount: 3200.00,
-        subtitle: "Across 5 categories",
-    },
-    {
-        header: "Total Spent",
-        icon: <Banknote className="text-brand-green" />,
-        amount: 2405.00,
-        subtitle: "75% of limit reached",
-    },
-    {
-        header: "Available",
-        icon: <PiggyBank className="text-brand-green" />,
-        amount: 795.00,
-        subtitle: "End of October status",
-    },
-]
+
 
 const Header = () => {
+    const [isTransactionDialogOpen, setIsTransactionDialogOpen] = React.useState(false);
+    const [isBudgetDialogOpen, setIsBudgetDialogOpen] = React.useState(false);
+    const budget = useTracker((s) => s.budget);
+    const totalSpent = useTracker((s) => s.totalSpent());
+    const available = useTracker((s) => s.available());
+    const categories = useTracker((s) => s.categories());
+    const budgets: BudgetType[] = [
+        {
+            header: "Monthly Budget",
+            icon: <ChartPie className="text-brand-green" />,
+            amount: budget,
+            subtitle: `Across ${categories} categories`,
+        },
+        {
+            header: "Total Spent",
+            icon: <Banknote className="text-brand-green" />,
+            amount: totalSpent,
+            subtitle: "75% of limit reached",
+        },
+        {
+            header: "Available",
+            icon: <PiggyBank className="text-brand-green" />,
+            amount: available,
+            subtitle: "End of October status",
+        },
+    ]
     return (
         <div className="py-5 lg:py-8 px-5 lg:px-18 flex flex-col gap-y-8">
             <div className="flex lg:flex-row flex-col gap-y-10 justify-between">
@@ -44,18 +54,32 @@ const Header = () => {
                         <p className="text-xs font-normal ">Data is saved locally to your browser</p>
                     </div>
                 </div>
-                <Dialog>
-                    <DialogTrigger className="bg-brand-green w-fit h-fit flex items-center gap-x-2 text-[#0F172A] px-6 py-3 rounded-[12px] cursor-pointer">
-                        <CreditCard />
-                        <span className="text-base font-bold">Add Transaction</span>
-                    </DialogTrigger>
-                    <DialogContent className="border border-[#13EC5B33] p-5 lg:max-w-[510px] max-w-full">
-                        <DialogTitle className='text-2xl font-bold text-[#0F172A] leading-8'>
-                            Add Transaction
-                        </DialogTitle>
-                        <AddTransaction />
-                    </DialogContent>
-                </Dialog>
+                <div className="flex lg:flex-row flex-col gap-2">
+                    <Dialog open={isBudgetDialogOpen} onOpenChange={setIsBudgetDialogOpen}>
+                        <DialogTrigger className="bg-[#E2E8F0] mx-auto justify-center w-full lg:w-fit h-fit flex items-center gap-x-2 text-[#0F172A] px-6 py-3 rounded-[12px] cursor-pointer">
+                            <Briefcase />
+                            <span className="text-base font-bold">Add Budget</span>
+                        </DialogTrigger>
+                        <DialogContent className="border border-[#13EC5B33] p-5 lg:max-w-127.5 max-w-full">
+                            <DialogTitle className='text-2xl font-bold text-[#0F172A] leading-8'>
+                                Add Budget
+                            </DialogTitle>
+                            <AddBudget onSuccess={() => setIsBudgetDialogOpen(false)} />
+                        </DialogContent>
+                    </Dialog>
+                    <Dialog open={isTransactionDialogOpen} onOpenChange={setIsTransactionDialogOpen}>
+                        <DialogTrigger className="bg-brand-green mx-auto justify-center w-full lg:w-fit h-fit flex items-center gap-x-2 text-[#0F172A] px-6 py-3 rounded-[12px] cursor-pointer">
+                            <CreditCard />
+                            <span className="text-base font-bold">Add Transaction</span>
+                        </DialogTrigger>
+                        <DialogContent className="border border-[#13EC5B33] p-5 lg:max-w-127.5 max-w-full">
+                            <DialogTitle className='text-2xl font-bold text-[#0F172A] leading-8'>
+                                Add Transaction
+                            </DialogTitle>
+                            <AddTransaction onSuccess={() => setIsTransactionDialogOpen(false)} />
+                        </DialogContent>
+                    </Dialog>
+                </div>
             </div>
             <div className="flex gap-5 lg:gap-6 overflow-x-auto md:flex-wrap scrollbar-hide">
                 {budgets.map((item) => (
@@ -65,7 +89,7 @@ const Header = () => {
                             {item.icon}
                         </div>
                         <div className="flex flex-col gap-y-2">
-                            <p className="text-3xl font-black text-[#0F172A]">${item.amount.toLocaleString()}</p>
+                            <p className="text-3xl font-black text-[#0F172A]">₦{item.amount.toLocaleString()}</p>
                             <p className={`${item.subtitle === "75% of limit reached" ? "text-brand-green font-bold" : "text-[#64748B] text-sm font-normal"} `}>{item.subtitle}</p>
                         </div>
                     </div>
