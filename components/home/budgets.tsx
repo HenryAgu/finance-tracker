@@ -50,7 +50,7 @@ const budgets: BudgetTypes[] = [
 
 const Budgets = () => {
   return (
-    <div className='py-8 px-5 lg:px-18 grid grid-cols-1 lg:grid-cols-4 gap-6'>
+    <div className='py-8 px-5 lg:px-18 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
       {budgets.map((item) => (
         <CategoriesCard key={item.title} item={item}/>
       ))}

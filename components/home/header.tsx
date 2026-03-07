@@ -43,7 +43,7 @@ const Header = () => {
                         <p className="text-xs font-normal ">Data is saved locally to your browser</p>
                     </div>
                 </div>
-                <Button className="bg-brand-green w-fit flex items-center gap-x-2 text-[#0F172A] px-6 py-5" size="lg" type="button">
+                <Button className="bg-brand-green w-fit flex items-center gap-x-2 text-[#0F172A] px-6 py-5 cursor-pointer" size="lg" type="button">
                     <CreditCard />
                     <span className="text-base font-bold">Add Transaction</span>
                 </Button>

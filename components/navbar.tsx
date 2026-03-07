@@ -11,7 +11,7 @@ const Navbar = () => {
                     <input type="text" placeholder='Search transactions' className='text-sm text-brand-green outline-none' />
                 </div>
             </div>
-            <div className="bg-brand-green-subtle h-10 w-10 flex items-center justify-center rounded-full border border-brand-green-subtle">
+            <div className="bg-brand-green-subtle h-10 w-10 flex items-center justify-center rounded-full border-2 border-[#13EC5B33]">
                 <span className='text-brand-green font-semibold text-base'>A</span>
             </div>
         </nav>
