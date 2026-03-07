@@ -1,7 +1,9 @@
+"use client"
 import { Banknote, ChartPie, CloudOff, CreditCard, PiggyBank } from "lucide-react"
 import React from "react";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog";
 import AddTransaction from "./add-transaction";
+import { useTracker } from "@/store/useTrackerStore";
 
 type BudgetType = {
     header: string;
@@ -11,28 +13,30 @@ type BudgetType = {
 }
 
 
-const budgets: BudgetType[] = [
-    {
-        header: "Monthly Budget",
-        icon: <ChartPie className="text-brand-green" />,
-        amount: 3200.00,
-        subtitle: "Across 5 categories",
-    },
-    {
-        header: "Total Spent",
-        icon: <Banknote className="text-brand-green" />,
-        amount: 2405.00,
-        subtitle: "75% of limit reached",
-    },
-    {
-        header: "Available",
-        icon: <PiggyBank className="text-brand-green" />,
-        amount: 795.00,
-        subtitle: "End of October status",
-    },
-]
+
 
 const Header = () => {
+    const { budget, totalSpent, available, categories } = useTracker();
+    const budgets: BudgetType[] = [
+        {
+            header: "Monthly Budget",
+            icon: <ChartPie className="text-brand-green" />,
+            amount: budget,
+            subtitle: `Across ${categories} categories`,
+        },
+        {
+            header: "Total Spent",
+            icon: <Banknote className="text-brand-green" />,
+            amount: totalSpent,
+            subtitle: "75% of limit reached",
+        },
+        {
+            header: "Available",
+            icon: <PiggyBank className="text-brand-green" />,
+            amount: available,
+            subtitle: "End of October status",
+        },
+    ]
     return (
         <div className="py-5 lg:py-8 px-5 lg:px-18 flex flex-col gap-y-8">
             <div className="flex lg:flex-row flex-col gap-y-10 justify-between">
@@ -65,7 +69,7 @@ const Header = () => {
                             {item.icon}
                         </div>
                         <div className="flex flex-col gap-y-2">
-                            <p className="text-3xl font-black text-[#0F172A]">${item.amount.toLocaleString()}</p>
+                            <p className="text-3xl font-black text-[#0F172A]">₦{item.amount.toLocaleString()}</p>
                             <p className={`${item.subtitle === "75% of limit reached" ? "text-brand-green font-bold" : "text-[#64748B] text-sm font-normal"} `}>{item.subtitle}</p>
                         </div>
                     </div>

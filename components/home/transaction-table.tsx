@@ -93,7 +93,7 @@ export default function TransactionTable() {
 
                     {/* Amount */}
                     <span className="text-sm font-semibold text-red-400 text-right">
-                        -${t.amount.toFixed(2)}
+                        -₦{t.amount.toFixed(2)}
                     </span>
                 </div>
             ))}

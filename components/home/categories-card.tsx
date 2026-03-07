@@ -1,5 +1,4 @@
 import React from 'react'
-import { Pencil } from 'lucide-react'
 import { getStatus } from '@/lib/get-status';
 
 type BudgetTypes = {
@@ -30,8 +29,8 @@ const CategoriesCard = ({ item }: { item: BudgetTypes }) => {
       <div className="flex flex-col gap-y-1">
         <p className="text-[#0F172A] font-semibold text-base">{item.title}</p>
         <div className="flex items-end gap-x-1">
-          <p className="text-[#0F172A] font-black text-2xl">${item.spent.toLocaleString()}</p>
-          <p className="text-[#94A3B8] text-sm pb-0.5">of ${item.amount.toLocaleString()}</p>
+          <p className="text-[#0F172A] font-black text-2xl">₦{item.spent.toLocaleString()}</p>
+          <p className="text-[#94A3B8] text-sm pb-0.5">of ₦{item.amount.toLocaleString()}</p>
         </div>
       </div>
 
@@ -48,9 +47,6 @@ const CategoriesCard = ({ item }: { item: BudgetTypes }) => {
         <p className={`text-sm font-medium ${status.labelColor}`}>
           {Math.round(pct)}% Spent
         </p>
-        <button className="text-[#94A3B8] hover:text-brand-green transition-colors">
-          <Pencil size={14} />
-        </button>
       </div>
     </div>
   )

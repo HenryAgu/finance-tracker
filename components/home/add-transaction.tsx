@@ -20,7 +20,7 @@ const AddTransaction = () => {
         </TabsList>
 
         {TABS.map(({ value, content }) => (
-          <TabsContent key={value} value={value} className="mt-5">
+          <TabsContent key={value} value={value} className="mt-5 h-[20vh] overflow-y-auto">
             {content}
           </TabsContent>
         ))}

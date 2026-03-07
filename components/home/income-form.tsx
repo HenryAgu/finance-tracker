@@ -5,7 +5,7 @@ const IncomeForm = () => {
     <form className="flex flex-col gap-y-6">
       <div className="flex flex-col gap-y-2">
         <label htmlFor="" className="text-sm font-bold text-[#334155]">Amount</label>
-        <input type="text" name="" id="" className="p-3 border border-[#E2E8F0] rounded-[12px]" />
+        <input type="number" name="" id="" className="p-3 border border-[#E2E8F0] rounded-[12px]" />
       </div>
       <div className="flex flex-col gap-y-2">
         <label htmlFor="" className="text-sm font-bold text-[#334155]">Description</label>
@@ -23,7 +23,7 @@ const IncomeForm = () => {
       </div>
       <div className="mt-8 flex gap-x-4">
         <DialogClose className="border border-[#E2E8F0] rounded-[12px] py-3 px-6 w-full text-base font-bold text-[#0F172A]">Cancel</DialogClose>
-        <button className="rounded-[12px] py-3 px-6 w-full bg-brand-green text-base font-bold text-[#0F172A]">1</button>
+        <button className="rounded-[12px] py-3 px-6 w-full bg-brand-green text-base font-bold text-[#0F172A]">Save Transaction</button>
       </div>
     </form>
   )
