@@ -49,7 +49,7 @@ const Header = () => {
                         <CreditCard />
                         <span className="text-base font-bold">Add Transaction</span>
                     </DialogTrigger>
-                    <DialogContent className="border border-[#13EC5B33] p-5 lg:max-w-[510px] max-w-full">
+                    <DialogContent className="border border-[#13EC5B33] p-5 lg:max-w-127.5 max-w-full">
                         <DialogTitle className='text-2xl font-bold text-[#0F172A] leading-8'>
                             Add Transaction
                         </DialogTitle>
