@@ -1,6 +1,7 @@
 import { Banknote, ChartPie, CloudOff, CreditCard, PiggyBank } from "lucide-react"
-import { Button } from "../ui/button"
 import React from "react";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog";
+import AddTransaction from "./add-transaction";
 
 type BudgetType = {
     header: string;
@@ -43,10 +44,18 @@ const Header = () => {
                         <p className="text-xs font-normal ">Data is saved locally to your browser</p>
                     </div>
                 </div>
-                <Button className="bg-brand-green w-fit flex items-center gap-x-2 text-[#0F172A] px-6 py-5 cursor-pointer" size="lg" type="button">
-                    <CreditCard />
-                    <span className="text-base font-bold">Add Transaction</span>
-                </Button>
+                <Dialog>
+                    <DialogTrigger className="bg-brand-green w-fit h-fit flex items-center gap-x-2 text-[#0F172A] px-6 py-3 rounded-[12px] cursor-pointer">
+                        <CreditCard />
+                        <span className="text-base font-bold">Add Transaction</span>
+                    </DialogTrigger>
+                    <DialogContent className="border border-[#13EC5B33] p-5 lg:max-w-[510px] max-w-full">
+                        <DialogTitle className='text-2xl font-bold text-[#0F172A] leading-8'>
+                            Add Transaction
+                        </DialogTitle>
+                        <AddTransaction />
+                    </DialogContent>
+                </Dialog>
             </div>
             <div className="flex gap-5 lg:gap-6 overflow-x-auto md:flex-wrap scrollbar-hide">
                 {budgets.map((item) => (
