@@ -1,37 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finance Tracker
 
-## Getting Started
+A modern personal finance tracker built with Next.js, Tailwind CSS, and Zustand. This application allows you to seamlessly track your income, expenses, and manage your overall budget all from your browser.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🏗️ What I Built & Why
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+I built a client-heavy, extremely responsive personal finance tracker that persists data locally. The primary goal was to create a frictionless experience for adding transactions and immediately seeing how they affect the available budget.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Technical Choices:
+- **Next.js (React 19, App Router):** Chose Next.js to provide a solid foundation for the application. Even though it's currently a client-heavy app, Next.js provides excellent developer experience, simple routing, and the foundation to easily add a backend API in the future.
+- **Zustand (with `persist` middleware):** Instead of heavier state management libraries like Redux or relying solely on React Context, I opted for Zustand. It has minimal boilerplate, exceptional TypeScript support, and its out-of-the-box `persist` middleware made saving the user's financial data to `localStorage` incredibly straightforward.
+- **React Hook Form + Zod:** For data entry (adding income and expenses), robust validation is critical. React Hook Form minimizes re-renders, while Zod ensures the shape of the data strictly matches our TypeScript endpoints (`components/schemas/form.ts`).
+- **Tailwind CSS v4 & shadcn/ui:** Allowed for rapid, beautiful, and accessible UI development. Using shadcn/ui components (like dialog modals, tables, inputs) kept the design consistent and premium without writing everything from scratch.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🔮 What I'd Improve With More Time
 
-To learn more about Next.js, take a look at the following resources:
+Given more time, I would expand this application in the following ways:
+1. **Cloud Database & Authentication:** Move away from purely local storage and integrate something like Supabase/PostgreSQL with Clerk or NextAuth. This would allow users to access their data securely across multiple devices.
+2. **Advanced Data Visualization:** Integrate a charting library (like Recharts) to display income vs. expense trends over time, or pie charts breaking down expenses by category.
+3. **Transaction Table Enhancements:** Add pagination, multi-column sorting (by date, amount, category), and search/filtering capabilities to the transaction table.
+4. **CSV Export:** Allow users to easily download their financial data in CSV format for use in spreadsheet software.
+5. **Recurring Transactions:** Implementlogic to handle monthly subscriptions or regular paychecks automatically.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧗 Challenges Faced
 
-## Deploy on Vercel
+- **Server vs. Client Components Setup:** Encountered Next.js specific challenges around mixing React Hook Form inside components without explicitly marking them with `"use client"`. Fixing these boundaries was essential to ensuring hooks didn't crash on the server.
+- **Modal Lifecycle Management:** When submitting an income or expense form inside a dialog, I had to ensure the form accurately validated, updated the Zustand store, and then programmatically closed the dialog modal automatically to create a smooth user experience.
+- **Handling Two Transaction Types Smoothly:** Finding an elegant way to blend both `expense` and `income` states within the single Zustand store, while providing dedicated derived helpers (`totalSpent()`, `totalIncome()`, `available()`) for real-time dashboard statistics.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-"# finance-tracker" 
+## ⏱️ Time Spent
+
+**Approximate time spent:** ~4 - 6 hours.
+*(The focus was on laying down a solid foundation, robust form validation, and integrating reliable client-side state management quickly).*
+
+---
+
+## � Getting Started Locally
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+3. Open [http://localhost:3000](http://localhost:3000) with your browser.
